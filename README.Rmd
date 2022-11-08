@@ -42,7 +42,7 @@ be read as from "rows to columns" or from "columns to rows".
 
 ### Subclasses 
 `cm` also provides two contact matrix subclasses based on those discussed in
-\cite{Klepec et al}:
+Klepec et al:
 
 * a `social_contact_matrix`; and
 * a `population_contact_matrix`.

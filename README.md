@@ -33,7 +33,7 @@ from “columns to rows”.
 ### Subclasses
 
 `cm` also provides two contact matrix subclasses based on those
-discussed in :
+discussed in Klepec et al:
 
 -   a `social_contact_matrix`; and
 -   a `population_contact_matrix`.
