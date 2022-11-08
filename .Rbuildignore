@@ -1,0 +1,11 @@
+^.git$
+^.*\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
+^docs$
+^doc$
+^\.github$
+^codecov\.yml$
+^Dockerfile$
+^\.Rhistory$

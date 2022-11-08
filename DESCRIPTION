@@ -1,0 +1,19 @@
+Package: cm
+Title: Contact Matrices
+Version: 0.0.0.9000
+Authors@R: c(person(given = "Crown Copyright", role = c("cph", "fnd")),
+             person(given = "Tim", family = "Taylor",
+                    email = "timothy.taylor@ukhsa.gov.uk",
+                    role = c("aut", "cre"), 
+                    comment = c(ORCID = "0000-0002-8587-7113")))
+Description: A class for contact matrices.
+URL: https://github.com/TimTaylor/cm
+BugReports: https://github.com/TimTaylor/cm/issues
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Suggests: 
+    socialmixr
+Imports: 
+    stats

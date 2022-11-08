@@ -1,0 +1,101 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# cm
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+Proof of concept (poc) for a contact matrix class that could underpin various
+packages (e.g. [socialmixr](https://cran.r-project.org/package=socialmixr)).
+
+## Installation
+
+You can install cm from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("epi-helpers/cm")
+```
+
+## Overview
+
+### A contact matrix class
+
+The underlying `contact_matrix` class is very simple with the only requirements
+on the underlying data being that it must be a numeric matrix of equal
+dimensions (i.e. an equal number of rows and columns). Encoded with this data is
+an additional `from` attribute which conveys to a user whether the matrix should
+be read as from "rows to columns" or from "columns to rows".
+
+### Subclasses 
+`cm` also provides two contact matrix subclasses based on those discussed in
+\cite{Klepec et al}:
+
+* a `social_contact_matrix`; and
+* a `population_contact_matrix`.
+
+The motivation for explicit classes is to avoid confusion on behalf of package
+users/developers (e.g. are contacts represented as from "rows to columns"
+or "columns to rows"; is this matrix symmetric with respect to population
+weightings?).
+
+The subclasses deliberately simple. For social contact matrices these are just a
+subclass of a contact matrix. For population contact matrices they require an
+additional attribute that encapsulates the population weightings
+that give symmetry, that is \eqn{C_{ij} * w_{j} == C_{ji} * w_{i}}, where
+\eqn{w_{k}} represents the population in group *k*.
+
+### Example
+
+We use data from [socialmixr](https://cran.r-project.org/package=socialmixr)
+to understand how we could utilise explicit matrix classes. Currently
+construction is slightly long-winded as I still need to provide general coercion
+functions for ready formed matrices (remember this is just a poc).
+
+```{r}
+library(cm)
+library(socialmixr)
+
+# first obtain data for the social contact matrix and underlying population
+dat <- contact_matrix(
+    polymod,
+    countries = "United Kingdom",
+    age.limits = c(0, 1, 5, 15)
+)
+dat <- dat$matrix
+dat2 <- contact_matrix(
+    polymod,
+    countries = "United Kingdom",
+    age.limits = c(0, 1, 5, 15),
+    symmetric = TRUE
+)
+popn <- dat2$demography$population
+
+# currently we require long format data
+(dat <- as.data.frame(as.table(dat)))
+
+# create a social contact matrix
+(social_mat <- with(
+    dat,
+    social_contact_matrix(age.group, contact.age.group, Freq, from = "rows")
+))
+
+# convert to a population contact matrix
+(population_mat <- as_population_matrix(social_mat, population = popn))
+
+# compare this to the data already loaded from socialmixr
+dat2$matrix
+```
