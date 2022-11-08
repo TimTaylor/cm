@@ -288,6 +288,14 @@ as_population_matrix.social_contact_matrix <- function(x, population, ...) {
 
 }
 
+#' @export
+as.matrix.contact_matrix <- function(x, ...) {
+    dim <- dim(x)
+    attributes(x) <- NULL
+    dim(x) <- dim
+    x
+}
+
 # WIP - this would be the external function for other developers building
 #       contact matrices. Has a few additional checks on input. I've not used
 #       for the the social and raw contact matrices construction but this could
