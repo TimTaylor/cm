@@ -140,11 +140,14 @@ popn <- dat2$demography$population
 #>   690734  2762936  7385454 49447627
 
 # compare this to the data already loaded from socialmixr
-dat2$matrix
+(original <- dat2$matrix)
 #>       contact.age.group
 #>             [0,1)     [1,5)   [5,15)      15+
 #>   [1,] 0.40000000 0.6250000 0.764365 4.122919
 #>   [2,] 0.15625000 1.9375000 1.406063 5.929829
 #>   [3,] 0.07148821 0.5260153 7.946078 7.428739
 #>   [4,] 0.05759306 0.3313352 1.109550 9.594101
+dimnames(original) <- NULL
+all.equal(as.matrix(population_mat), original)
+#> [1] TRUE
 ```

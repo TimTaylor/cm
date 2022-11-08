@@ -97,5 +97,7 @@ popn <- dat2$demography$population
 (population_mat <- as_population_matrix(social_mat, population = popn))
 
 # compare this to the data already loaded from socialmixr
-dat2$matrix
+(original <- dat2$matrix)
+dimnames(original) <- NULL
+all.equal(as.matrix(population_mat), original)
 ```
