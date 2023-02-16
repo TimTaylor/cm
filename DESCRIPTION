@@ -12,8 +12,10 @@ BugReports: https://github.com/TimTaylor/cm/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Suggests: 
     socialmixr
 Imports: 
-    stats
+    data.table,
+    stats,
+    withr
