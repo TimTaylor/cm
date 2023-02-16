@@ -30,10 +30,6 @@ contact_matrix <- function(
     fill = 0
 ) {
 
-    # value checking
-    if(!is.numeric(value))
-        stop("`value` must be <numeric>.")
-
     # from checks
     if (!is.list(from))
         stop("`from` must be a list.")
@@ -68,6 +64,12 @@ contact_matrix <- function(
     nrows_to <- unique(lengths(to))
     if (length(nrows_to) > 1L || nrows_to != nrows_from)
         stop("all variables in `to` must have the same length as those in `from`.")
+
+    # value checking
+    if(!is.numeric(value))
+        stop("`value` must be <numeric>.")
+    if (length(value) != nrows_from)
+        stop("`value` must be the same length as the variables in `from`.")
 
     # alias names
     nms <- names_from
